@@ -1,0 +1,20 @@
+<!-- Angular 17 built-in control flow -->
+@if (user(); as u) {
+  <p>Welcome, {{ u.name }}</p>
+} @else {
+  <p>No user signed in.</p>
+}
+
+@switch (status()) {
+  @case ('loading') { <p>Loading…</p> }
+  @case ('error') { <p class="error">Something failed.</p> }
+  @default { <p>Ready.</p> }
+}
+
+<ul>
+  @for (item of items(); track item.id) {
+    <li [class.done]="item.done">{{ item.label }}</li>
+  } @empty {
+    <li>Nothing to do.</li>
+  }
+</ul>

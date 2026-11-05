@@ -1,0 +1,15 @@
+<!-- Angular 18 @let: compute once, reuse in the block -->
+@let total = items().reduce(sumReducer, 0);
+@let hasItems = items().length > 0;
+
+@if (hasItems) {
+  <p>{{ items().length }} items, total {{ total }}</p>
+} @else {
+  <p>Cart is empty.</p>
+}
+
+<!-- Works well with async sources too -->
+@let profile = profile$ | async;
+@if (profile) {
+  <h3>{{ profile.displayName }}</h3>
+}

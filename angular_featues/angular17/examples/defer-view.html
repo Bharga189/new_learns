@@ -1,0 +1,10 @@
+<!-- Deferrable view: the heavy component's code can be loaded lazily. -->
+@defer (on viewport; prefetch on idle) {
+  <app-heavy-chart [data]="chartData()" />
+} @placeholder (minimum 150ms) {
+  <div class="chart-skeleton" aria-hidden="true">Chart area</div>
+} @loading (after 100ms; minimum 200ms) {
+  <p>Loading chart…</p>
+} @error {
+  <button type="button" (click)="reload()">Retry chart</button>
+}
