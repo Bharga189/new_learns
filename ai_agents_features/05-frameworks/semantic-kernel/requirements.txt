@@ -1,0 +1,3 @@
+# Install to run the real Semantic Kernel path (mock demo works without these).
+semantic-kernel>=1.0.0
+# Provider connectors (OpenAI/Azure OpenAI/etc.) vary; verify current docs.

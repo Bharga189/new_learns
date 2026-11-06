@@ -1,0 +1,5 @@
+# Install to run the real LangGraph path (mock demo works without these).
+langgraph>=0.2.0
+langchain-core>=0.3.0
+# Optional, for a real OpenAI-backed model:
+# langchain-openai>=0.2.0

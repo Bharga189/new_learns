@@ -1,0 +1,4 @@
+# Install to run a real AutoGen path (mock demo works without these).
+# Package names/APIs vary by AutoGen version; verify current docs.
+autogen-agentchat>=0.2.0; python_version>="3.10"
+# Optional model client packages depend on provider/version.

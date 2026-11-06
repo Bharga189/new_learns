@@ -1,0 +1,6 @@
+# Install to run a real LangChain path (mock demo works without these).
+# LangChain is split into packages; verify current docs/versions.
+langchain-core>=0.3.0
+langchain>=0.3.0
+# Optional provider integration (example):
+# langchain-openai>=0.2.0

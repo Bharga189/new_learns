@@ -1,0 +1,5 @@
+# This example uses only the Python standard library (urllib + json).
+# No packages are required for the mock demo or for the real System One call.
+#
+# Optional, if you prefer the official SDK over the raw HTTP client here:
+#   typesafe-sdk

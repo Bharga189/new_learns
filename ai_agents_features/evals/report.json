@@ -1,0 +1,215 @@
+{
+  "total": 26,
+  "passed": 26,
+  "failed": 0,
+  "results": [
+    {
+      "id": "router_technical",
+      "suite": "golden",
+      "passed": true,
+      "detail": "route=technical",
+      "duration_ms": 0.14,
+      "output_preview": "{'route': 'technical', 'agent': 'technical', 'answer': \"Technical help: troubleshoot 'The API returns a 500 error on login'.\"}"
+    },
+    {
+      "id": "guardrails_valid_action",
+      "suite": "golden",
+      "passed": true,
+      "detail": "action=create_ticket",
+      "duration_ms": 0.28,
+      "output_preview": "{'action': 'create_ticket', 'title': 'Investigate login errors', 'priority': 'high'}"
+    },
+    {
+      "id": "rag_grounded",
+      "suite": "golden",
+      "passed": true,
+      "detail": "grounded=True",
+      "duration_ms": 0.14,
+      "output_preview": "GroundedAnswer(answer='Based on the sources: Service alpha retries failed jobs 3 times with exponential backoff. Service alpha stores idempotency keys for 24 hours to prevent duplicates.', citations=["
+    },
+    {
+      "id": "rag_abstains",
+      "suite": "golden",
+      "passed": true,
+      "detail": "grounded=False",
+      "duration_ms": 0.07,
+      "output_preview": "GroundedAnswer(answer=\"I don't have enough information in the available sources to answer that.\", citations=[], grounded=False)"
+    },
+    {
+      "id": "retry_recovers_transient",
+      "suite": "tool_failures",
+      "passed": true,
+      "detail": "{'result': 'primary result', 'calls': 3, 'ok_events': [True]}",
+      "duration_ms": 100.02,
+      "output_preview": "{'result': 'primary result', 'calls': 3, 'ok_events': [True]}"
+    },
+    {
+      "id": "idempotency_prevents_duplicates",
+      "suite": "tool_failures",
+      "passed": true,
+      "detail": "{'side_effects': 1}",
+      "duration_ms": 0.02,
+      "output_preview": "{'side_effects': 1}"
+    },
+    {
+      "id": "blocks_unsafe_action",
+      "suite": "adversarial",
+      "passed": true,
+      "detail": "{'errors': [\"action must be one of ['create_ticket', 'send_summary']\"]}",
+      "duration_ms": 0.03,
+      "output_preview": "{'errors': [\"action must be one of ['create_ticket', 'send_summary']\"]}"
+    },
+    {
+      "id": "injection_query_does_not_hallucinate",
+      "suite": "adversarial",
+      "passed": true,
+      "detail": "grounded=False answer=I don't have enough information in the available sources to answer that.",
+      "duration_ms": 0.09,
+      "output_preview": "GroundedAnswer(answer=\"I don't have enough information in the available sources to answer that.\", citations=[], grounded=False)"
+    },
+    {
+      "id": "gate_fails_closed_on_jev_error",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): HTTP 503: upstream unavailable",
+      "duration_ms": 0.05,
+      "output_preview": "{'verdict': 'review', 'reason': 'check unavailable (fail closed): HTTP 503: upstream unavailable', 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_fails_closed_on_unexpected_exception",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): TimeoutError: socket timed out",
+      "duration_ms": 0.05,
+      "output_preview": "{'verdict': 'review', 'reason': 'check unavailable (fail closed): TimeoutError: socket timed out', 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_fails_closed_on_empty_answers",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): no answer for question 'customer_asked'",
+      "duration_ms": 0.04,
+      "output_preview": "{'verdict': 'review', 'reason': \"check unavailable (fail closed): no answer for question 'customer_asked'\", 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_fails_closed_on_missing_answer",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): no answer for question 'policy_covers'",
+      "duration_ms": 0.07,
+      "output_preview": "{'verdict': 'review', 'reason': \"check unavailable (fail closed): no answer for question 'policy_covers'\", 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_rejects_out_of_range_probability",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): noul probability for 'policy_covers' out of range: 1.4",
+      "duration_ms": 0.04,
+      "output_preview": "{'verdict': 'review', 'reason': \"check unavailable (fail closed): noul probability for 'policy_covers' out of range: 1.4\", 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_rejects_wrong_answer_type",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): question 'policy_covers' is 'choice', expected 'noul'",
+      "duration_ms": 0.03,
+      "output_preview": "{'verdict': 'review', 'reason': \"check unavailable (fail closed): question 'policy_covers' is 'choice', expected 'noul'\", 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_rejects_string_probability",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | check unavailable (fail closed): noul probability for 'policy_covers' is not a number: '0.93'",
+      "duration_ms": 0.06,
+      "output_preview": "{'verdict': 'review', 'reason': \"check unavailable (fail closed): noul probability for 'policy_covers' is not a number: '0.93'\", 'calls': 1, 'probabilities': {}}"
+    },
+    {
+      "id": "gate_reviews_ambiguous_probability",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "review | ambiguous: policy_covers=0.55",
+      "duration_ms": 0.07,
+      "output_preview": "{'verdict': 'review', 'reason': 'ambiguous: policy_covers=0.55', 'calls': 1, 'probabilities': {'customer_asked': 0.93, 'right_order': 0.93, 'policy_covers': 0.55}}"
+    },
+    {
+      "id": "gate_approves_only_when_every_check_clears",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "approve | all propositions clear the approve threshold",
+      "duration_ms": 0.04,
+      "output_preview": "{'verdict': 'approve', 'reason': 'all propositions clear the approve threshold', 'calls': 1, 'probabilities': {'customer_asked': 0.93, 'right_order': 0.93, 'policy_covers': 0.93}}"
+    },
+    {
+      "id": "gate_precheck_blocks_without_model_call",
+      "suite": "jev_gate",
+      "passed": true,
+      "detail": "{'verdict': 'block', 'calls': 0}",
+      "duration_ms": 0.02,
+      "output_preview": "{'verdict': 'block', 'calls': 0}"
+    },
+    {
+      "id": "cascade_accepts_clean_cheap_draft",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "{'handled_by': 'cheap', 'accepted': True, 'probabilities': {'grounded': 0.95, 'resolves': 0.95}, 'llm_calls': 1, 'verify_calls': 1, 'cost': 1.2, 'reason': 'cheap draft clears 0.85: grounded=0.95'}",
+      "duration_ms": 0.15,
+      "output_preview": "{'handled_by': 'cheap', 'accepted': True, 'probabilities': {'grounded': 0.95, 'resolves': 0.95}, 'llm_calls': 1, 'verify_calls': 1, 'cost': 1.2, 'reason': 'cheap draft clears 0.85: grounded=0.95'}"
+    },
+    {
+      "id": "cascade_escalates_when_cheap_draft_ungrounded",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "{'handled_by': 'strong', 'accepted': True, 'probabilities': {'grounded': 0.95, 'resolves': 0.95}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': 'cheap: weak (grounded=0.30) -> escalate; strong draft clears 0.85: grounded=0.95'}",
+      "duration_ms": 0.12,
+      "output_preview": "{'handled_by': 'strong', 'accepted': True, 'probabilities': {'grounded': 0.95, 'resolves': 0.95}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': 'cheap: weak (grounded=0.30) "
+    },
+    {
+      "id": "cascade_broken_cheap_check_never_accepts",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "strong accepted=True verify_calls=2",
+      "duration_ms": 0.11,
+      "output_preview": "{'handled_by': 'strong', 'accepted': True, 'probabilities': {'grounded': 0.95, 'resolves': 0.95}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': 'cheap: check unavailable: si"
+    },
+    {
+      "id": "cascade_empty_cheap_verdict_never_accepts",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "{'handled_by': 'strong', 'accepted': True, 'probabilities': {'grounded': 0.96, 'resolves': 0.96}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': \"cheap: check unavailable: no answer for question 'grounded' -> escalate; strong draft clears 0.85: grounded=0.96\"}",
+      "duration_ms": 0.08,
+      "output_preview": "{'handled_by': 'strong', 'accepted': True, 'probabilities': {'grounded': 0.96, 'resolves': 0.96}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': \"cheap: check unavailable: no"
+    },
+    {
+      "id": "cascade_both_checks_broken_goes_to_human",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "{'handled_by': 'human', 'accepted': False, 'probabilities': {}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': \"cheap: check unavailable: simulated upstream 503 -> escalate; strong: check unavailable: no answer for question 'grounded' -> escalate; no draft could be verified -> human\"}",
+      "duration_ms": 0.06,
+      "output_preview": "{'handled_by': 'human', 'accepted': False, 'probabilities': {}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': \"cheap: check unavailable: simulated upstream 503 -> escalate; "
+    },
+    {
+      "id": "cascade_unresolved_strong_draft_goes_to_human",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "{'handled_by': 'human', 'accepted': False, 'probabilities': {'grounded': 0.55, 'resolves': 0.55}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': 'cheap: weak (grounded=0.20) -> escalate; strong: weak (grounded=0.55) -> escalate; no draft cleared the threshold -> human'}",
+      "duration_ms": 0.07,
+      "output_preview": "{'handled_by': 'human', 'accepted': False, 'probabilities': {'grounded': 0.55, 'resolves': 0.55}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': 'cheap: weak (grounded=0.20) "
+    },
+    {
+      "id": "cascade_never_accepts_unverified_draft",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "strong accepted=True; strong accepted=True; human accepted=False",
+      "duration_ms": 0.24,
+      "output_preview": "[{'handled_by': 'strong', 'accepted': True, 'probabilities': {'grounded': 0.99, 'resolves': 0.99}, 'llm_calls': 2, 'verify_calls': 2, 'cost': 41.400000000000006, 'reason': 'cheap: check unavailable: s"
+    },
+    {
+      "id": "cascade_unverifiable_is_not_verified",
+      "suite": "jev_cascade",
+      "passed": true,
+      "detail": "{'result': None, 'note': 'check unavailable: simulated upstream 503'}",
+      "duration_ms": 0.03,
+      "output_preview": "{'result': None, 'note': 'check unavailable: simulated upstream 503'}"
+    }
+  ]
+}
