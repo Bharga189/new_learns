@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-basic"
+version = "1.0.0"
+description = "Comprehensive guide to core Python programming features"
+readme = "README.md"
+keywords = ["python", "tutorial", "fundamentals", "oop", "data-structures"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Education",
+    "Topic :: Software Development",
+]
+requires-python = ">=3.8"
+
+[project.optional-dependencies]
+dev = ["pytest>=6.0", "black>=21.0", "flake8>=3.9", "mypy>=0.910", "coverage>=5.0"]
+docs = ["sphinx>=4.0", "sphinx-rtd-theme>=0.5"]
+
+[tool.setuptools]
+packages = ["python_basic"]
+
+[tool.black]
+line-length = 88
+target-version = ['py38', 'py39', 'py310', 'py311', 'py312']
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = E203,W503
+exclude = .git,__pycache__,.tox,docs,build
+max-complexity = 10
+
+[tool.mypy]
+python_version = 3.8
+warn_return_any = True
+warn_unused_configs = True
+disallow_untyped_defs = True
+ignore_missing_imports = True
