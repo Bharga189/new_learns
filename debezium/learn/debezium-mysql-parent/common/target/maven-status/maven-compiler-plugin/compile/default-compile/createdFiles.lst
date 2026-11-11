@@ -1,0 +1,3 @@
+io\buffy\cdc\common\Jdbc.class
+io\buffy\cdc\common\JsonSupport.class
+io\buffy\cdc\common\CdcConfig.class

@@ -1,0 +1,32 @@
+{
+  "name": "mysql-orders",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "cdc_user",
+    "database.password": "cdc_pass",
+    "database.server.id": "184054",
+    "database.include.list": "test_db",
+    "table.include.list": "test_db.orders",
+    "database.ssl.mode": "disabled",
+    "database.connectionTimeZone": "UTC",
+
+    "topic.prefix": "mysql-cdc",
+    "include.schema.changes": "true",
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:29092",
+    "schema.history.internal.kafka.topic": "cdc-schema-history-orders",
+
+    "snapshot.mode": "initial",
+    "decimal.handling.mode": "string",
+    "tombstones.on.delete": "false",
+    "heartbeat.interval.ms": "5000",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
+  }
+}

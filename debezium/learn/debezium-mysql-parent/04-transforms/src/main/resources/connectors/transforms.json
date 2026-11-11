@@ -1,0 +1,41 @@
+{
+  "name": "mysql-customers-masked",
+  "config": {
+    "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+    "tasks.max": "1",
+
+    "database.hostname": "mysql",
+    "database.port": "3306",
+    "database.user": "cdc_user",
+    "database.password": "cdc_pass",
+    "database.server.id": "184055",
+    "database.include.list": "test_db",
+    "table.include.list": "test_db.customers",
+    "database.ssl.mode": "disabled",
+    "database.connectionTimeZone": "UTC",
+
+    "topic.prefix": "mysql-cdc-transforms",
+    "include.schema.changes": "false",
+    "schema.history.internal.kafka.bootstrap.servers": "kafka:29092",
+    "schema.history.internal.kafka.topic": "cdc-schema-history-transforms",
+
+    "snapshot.mode": "initial",
+    "decimal.handling.mode": "string",
+    "tombstones.on.delete": "false",
+    "heartbeat.interval.ms": "5000",
+
+    "transforms": "unwrap,mask",
+    "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState",
+    "transforms.unwrap.drop.tombstones": "true",
+    "transforms.unwrap.delete.handling.mode": "rewrite",
+    "transforms.unwrap.add.fields": "op,source.ts_ms",
+    "transforms.mask.type": "io.buffy.cdc.transforms.MaskPiiTransform",
+    "transforms.mask.fields": "customer_name,email",
+    "transforms.mask.replacement": "***",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter.schemas.enable": "false"
+  }
+}

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.buffy.cdc</groupId>
+  <artifactId>debezium-mysql-parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <name>Debezium + MySQL CDC examples</name>
+  <description>
+    One Maven project, one Podman stack, and seven small modules that go from an
+    embedded Debezium engine to the outbox pattern. Each module is a feature.
+  </description>
+
+  <modules>
+    <module>common</module>
+    <module>01-basic-embedded</module>
+    <module>02-connect-deploy</module>
+    <module>03-consumer</module>
+    <module>04-transforms</module>
+    <module>05-schema-evolution</module>
+    <module>06-incremental-snapshot</module>
+    <module>07-outbox</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.release>17</maven.compiler.release>
+    <debezium.version>2.6.0.Final</debezium.version>
+    <slf4j.version>2.0.13</slf4j.version>
+    <exec.plugin.version>3.2.0</exec.plugin.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Manages Debezium, Kafka, MySQL driver and Jackson versions. -->
+      <dependency>
+        <groupId>io.debezium</groupId>
+        <artifactId>debezium-bom</artifactId>
+        <version>${debezium.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.13.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.2.5</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <!-- Every module can be run with:
+             mvn -q exec:java -Dexec.mainClass=... -Dexec.args="..."
+      -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>${exec.plugin.version}</version>
+        <configuration>
+          <cleanupDaemonThreads>false</cleanupDaemonThreads>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

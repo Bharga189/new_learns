@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>io.buffy.cdc</groupId>
+    <artifactId>debezium-mysql-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>cdc-01-basic-embedded</artifactId>
+  <name>01 - Embedded Debezium engine (no Kafka required)</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.buffy.cdc</groupId>
+      <artifactId>cdc-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
+    <!-- The embedded engine + MySQL connector, exactly what Kafka Connect uses. -->
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-embedded</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-connector-mysql</artifactId>
+    </dependency>
+
+    <!-- File-backed schema history, so this module does not need Kafka. -->
+    <dependency>
+      <groupId>io.debezium</groupId>
+      <artifactId>debezium-storage-file</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+  </dependencies>
+</project>
