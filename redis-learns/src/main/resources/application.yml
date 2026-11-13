@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: redis-redission-demo
+
+  # ----- Spring Data Redis (Lettuce client) -----
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      # password: ""   # set if Redis requires auth
+      database: 0
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+          max-wait: 1000ms
+
+  # ----- Spring Cache abstraction -----
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000   # 10 minutes default TTL
+      key-prefix: "cache:"
+      use-key-prefix: true
+
+server:
+  port: 8080
+
+# ----- Redis locking framework -----
+redis:
+  lock:
+    enabled: true
+    prefix: "lock"
+    wait-time: 10000
+    lease-time: 30000
+    retry-interval: 100
+
+# ----- Redisson (cluster/single server) -----
+redisson:
+  # Single server mode (matches the Podman Redis container)
+  single-server-config:
+    address: "redis://localhost:6379"
+    # password: null
+    database: 0
+    connection-minimum-idle-size: 2
+    connection-pool-size: 16
+    idle-connection-timeout: 10000
+    connect-timeout: 10000
+    timeout: 3000
+    retry-attempts: 3
+    retry-interval: 1500
+  threads: 4
+  netty-threads: 8
+
+logging:
+  level:
+    com.example.redisdemo: INFO
+    org.springframework.data.redis: WARN
+    org.redisson: WARN

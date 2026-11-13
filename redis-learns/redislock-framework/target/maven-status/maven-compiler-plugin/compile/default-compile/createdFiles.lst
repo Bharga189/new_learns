@@ -1,0 +1,6 @@
+com\example\redislock\RedisLockProperties.class
+com\example\redislock\RedisLockAutoConfiguration.class
+com\example\redislock\RedisLockManager.class
+com\example\redislock\RedisLock.class
+com\example\redislock\RedisLockAspect.class
+com\example\redislock\RedisPriorityLock.class

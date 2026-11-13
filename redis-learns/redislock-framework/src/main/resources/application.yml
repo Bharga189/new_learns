@@ -1,0 +1,21 @@
+# Redis Locking Framework Properties
+# Framework-specific locking configuration
+# Redis connection (host, port, database) should be configured by the consuming application
+
+spring:
+  application:
+    name: redis-lock-framework
+
+# ----- Redis Locking Framework -----
+redis:
+  lock:
+    enabled: true
+    prefix: "lock"
+    wait-time: 10000
+    lease-time: 30000
+    retry-interval: 100
+
+# Framework-specific logging
+logging:
+  level:
+    com.example.redislock: INFO
